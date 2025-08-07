@@ -1,17 +1,80 @@
 package org.example;
+// IMPORT LOCAL DATE
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
-        }
+//        Exercise 1: LocalDate and DateTimeFormatter
+        // Declaring a local time
+        LocalDate today = LocalDate.of(2025, 8, 21);
+
+        // Format the date using DateTimeFormatter: 21/08/2025
+        // Notes: yyyy, MM, dd, HH, mm, ss
+
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        System.out.println(today.format(format));
+
+        // Day of the week format: Thursday, August 21, 2025
+        DateTimeFormatter formatWeek = DateTimeFormatter.ofPattern("EEEE, MMMM dd, yyyy");
+        System.out.println(today.format(formatWeek));
+
+        //        Exercise 2: LocalTime and DateTimeFormatter
+        LocalTime now = LocalTime.of(16, 45, 30);
+
+        DateTimeFormatter format1 = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter format2 = DateTimeFormatter.ofPattern("hh:mm:ss a");
+
+        System.out.println("Default format: " + now);
+        System.out.println("24-hour format: " + now.format(format1));
+        System.out.println("12-hour format with AM/PM: " + now.format(format2));
+
+//        Exercise 3: LocalDateTime and DateTimeFormatter
+        LocalDateTime event = LocalDateTime.of(2025, 11, 27, 19, 0, 0);
+
+        DateTimeFormatter format3_1 = DateTimeFormatter.ofPattern("MMM dd, yyyy 'at' hh:mm a");
+
+        System.out.println("Default format: " + event);
+        System.out.println("Custom format: " + event.format(format3_1));
+//        Exercise 4: The Immutability of Date-Time Objects
+        LocalDate startDate = LocalDate.of(2025, 9, 1);
+        startDate.plusDays(10);
+        System.out.println("Start date after trying to modify it: " + startDate);
+        LocalDate endDate = startDate.plusDays(10);
+        System.out.println("The original start date is still: " + startDate);
+        System.out.println("The new end date is: " + endDate);
+
+//        Exercise 5: Adding and Subtracting Time (plus and minus)
+        LocalDateTime baseTime = LocalDateTime.of(2025, 10, 15, 10, 30, 0);
+
+        LocalDateTime futureTime = baseTime.plusYears(1).plusMonths(2).plusHours(5);
+        LocalDateTime pastTime = baseTime.minusWeeks(3).minusDays(3);
+
+        DateTimeFormatter format5 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        System.out.println("Base time:   " + baseTime.format(format5));
+        System.out.println("Future time: " + futureTime.format(format5));
+        System.out.println("Past time:   " + pastTime.format(format5));
+//        Exercise 6: Period - Measurinrg a Span of Time
+        LocalDate date1 = LocalDate.of(2024, 3, 15);
+        LocalDate date2 = LocalDate.of(2026, 7, 20);
+
+        Period period = Period.between(date1, date2);
+
+        System.out.print("The period between the two dates is: ");
+        System.out.print(period.getYears() + " years, ");
+        System.out.print(period.getMonths() + " months, and ");
+        System.out.println(period.getDays() + " days.");
+
+
     }
-}
+    }
